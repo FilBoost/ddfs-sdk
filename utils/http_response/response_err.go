@@ -10,6 +10,15 @@ type ResponseErr struct {
 	Data string `json:"data"`
 }
 
+func NewResponseErr(code ResponseInfo) *ResponseErr {
+	err := &ResponseErr{
+		ResponseCode: code.ResponseCode,
+	}
+
+	_ = json.Unmarshal(code.Data, &err.Data)
+	return err
+}
+
 func (resErr *ResponseErr) Error() string {
 	info := fmt.Sprintf("code:%d msg:%v", resErr.Code, resErr.Msg)
 	if resErr.Data == "" {

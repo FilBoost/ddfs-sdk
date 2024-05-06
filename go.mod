@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/detailyang/go-fallocate v0.0.0-20180908115635-432fa640bd2e
 	github.com/filecoin-project/go-bitfield v0.2.4
-	github.com/filecoin-project/go-state-types v0.11.1
+	github.com/filecoin-project/go-state-types v0.13.1
 	github.com/ipfs/go-cid v0.4.1
 	github.com/ipfs/go-log/v2 v2.5.1
 )
@@ -16,10 +16,10 @@ require (
 	github.com/ipfs/go-ipfs-util v0.0.2 // indirect
 	github.com/ipfs/go-ipld-cbor v0.0.6 // indirect
 	github.com/ipfs/go-ipld-format v0.0.2 // indirect
-	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1 // indirect
-	github.com/minio/sha256-simd v1.0.0 // indirect
+	github.com/minio/sha256-simd v1.0.1 // indirect
 	github.com/mr-tron/base58 v1.2.0 // indirect
 	github.com/multiformats/go-base32 v0.0.3 // indirect
 	github.com/multiformats/go-base36 v0.1.0 // indirect
@@ -28,7 +28,7 @@ require (
 	github.com/multiformats/go-varint v0.0.6 // indirect
 	github.com/polydawn/refmt v0.0.0-20201211092308-30ac6d18308e // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/whyrusleeping/cbor-gen v0.0.0-20210303213153-67a261a1d291 // indirect
+	github.com/whyrusleeping/cbor-gen v0.1.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
