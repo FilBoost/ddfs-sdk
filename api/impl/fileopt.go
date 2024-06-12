@@ -12,7 +12,7 @@ import (
 	logging "github.com/ipfs/go-log/v2"
 
 	"github.com/FilBoost/ddfs-sdk/api"
-	"github.com/FilBoost/ddfs-sdk/utils/http_response"
+	"github.com/FilBoost/ddfs-sdk/http/utils"
 )
 
 var log = logging.Logger("ddfs-apiImpl")
@@ -43,7 +43,7 @@ func (fo *DDFileOpt) fetch(offerConfirmation bool) (io.ReadCloser, uint64, error
 	v.Add("file", fo.file)
 	v.Add("offer_confirmation", strconv.FormatBool(offerConfirmation))
 
-	req, err := http_response.MakeRequest(http.MethodGet, fo.host, FetchFileUrl, v.Encode(), nil)
+	req, err := utils.MakeRequest(http.MethodGet, fo.host, FetchFileUrl, v.Encode(), nil)
 	if err != nil {
 		log.Errorf("[DD] MakeRequest failed err: %v", err)
 		return nil, 0, err
@@ -51,7 +51,7 @@ func (fo *DDFileOpt) fetch(offerConfirmation bool) (io.ReadCloser, uint64, error
 
 	var body io.ReadCloser
 	var contentLength int64
-	err = http_response.ProcessRequest(req, time.Hour*24, func(req *http.Request, resp *http.Response) error {
+	err = utils.ProcessRequest(req, time.Hour*24, func(req *http.Request, resp *http.Response) error {
 		if resp.ContentLength < 0 {
 			resp.Body.Close()
 			return fmt.Errorf("http can't get known ContentLength,access:%v", req.URL)
@@ -72,13 +72,13 @@ func (fo *DDFileOpt) Confirm(key string) error {
 	v := url.Values{}
 	v.Add("file", fo.file)
 	v.Add("key", key)
-	req, err := http_response.MakeRequest(http.MethodPut, fo.host, ConfirmFileUrl, v.Encode(), nil)
+	req, err := utils.MakeRequest(http.MethodPut, fo.host, ConfirmFileUrl, v.Encode(), nil)
 	if err != nil {
 		log.Errorf("[DD] NewRequest failed err: %v", err)
 		return err
 	}
 
-	err = http_response.ProcessRequestAndIgnoreResponse(req, time.Second*30)
+	err = utils.ProcessRequestAndIgnoreResponse(req, time.Second*30)
 	if err != nil {
 		log.Errorf("[DD] request http failed err: %v", err)
 		return err
@@ -90,13 +90,13 @@ func (fo *DDFileOpt) Confirm(key string) error {
 func (fo *DDFileOpt) Revert() error {
 	v := url.Values{}
 	v.Add("file", fo.file)
-	req, err := http_response.MakeRequest(http.MethodPut, fo.host, RevertFileStateUrl, v.Encode(), nil)
+	req, err := utils.MakeRequest(http.MethodPut, fo.host, RevertFileStateUrl, v.Encode(), nil)
 	if err != nil {
 		log.Errorf("[DD] NewRequest failed err: %v", err)
 		return err
 	}
 
-	err = http_response.ProcessRequestAndIgnoreResponse(req, time.Second*30)
+	err = utils.ProcessRequestAndIgnoreResponse(req, time.Second*30)
 	if err != nil {
 		log.Errorf("[DD] request http failed err: %v", err)
 		return err

@@ -10,7 +10,7 @@ import (
 	logging "github.com/ipfs/go-log/v2"
 
 	"github.com/FilBoost/ddfs-sdk/api"
-	"github.com/FilBoost/ddfs-sdk/utils/http_response"
+	"github.com/FilBoost/ddfs-sdk/http/http_response"
 )
 
 var log = logging.Logger("ddfs-proxy_reader")

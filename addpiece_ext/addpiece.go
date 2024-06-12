@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"github.com/FilBoost/ddfs-sdk/http/utils"
 	"io"
 	"math/bits"
 	"os"
@@ -21,7 +22,6 @@ import (
 	"github.com/FilBoost/ddfs-sdk/addpiece_ext/proxyreader"
 	"github.com/FilBoost/ddfs-sdk/api"
 	"github.com/FilBoost/ddfs-sdk/api/impl"
-	"github.com/FilBoost/ddfs-sdk/utils"
 )
 
 var log = logging.Logger("ddfs-addpiece")

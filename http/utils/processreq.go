@@ -1,9 +1,10 @@
-package http_response
+package utils
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/FilBoost/ddfs-sdk/http/http_response"
 	"io"
 	"net/http"
 	"net/url"
@@ -33,7 +34,7 @@ func ProcessRequest(req *http.Request, timeout time.Duration, decode func(req *h
 	}()
 
 	if resp.StatusCode >= 500 {
-		err = New500Err(resp.StatusCode, resp.Status, req.URL)
+		err = http_response.New500Err(resp.StatusCode, resp.Status, req.URL)
 		return err
 	}
 
@@ -44,7 +45,7 @@ func ProcessRequest(req *http.Request, timeout time.Duration, decode func(req *h
 			return fmt.Errorf("%v:%v access:%v, err:%v", resp.Status, resp.StatusCode, req.URL, err)
 		}
 
-		if err, ok := UnmarshalResponseErr(body); ok {
+		if err, ok := http_response.UnmarshalResponseErr(body); ok {
 			return err
 		}
 
@@ -79,14 +80,14 @@ func ProcessRequestAndDecodeResponse(req *http.Request, timeout time.Duration, r
 			return err
 		}
 
-		var resInfo ResponseInfo
+		var resInfo http_response.ResponseInfo
 		err = json.Unmarshal(body, &resInfo)
 		if err != nil {
 			log.Errorf("[DD] unmarshal http body failed err:%v", err)
 			return err
 		}
 
-		if !IsOk(resInfo.Code) {
+		if !http_response.IsOk(resInfo.Code) {
 			return fmt.Errorf("[DD] information of reponse: %v", string(body))
 		}
 
