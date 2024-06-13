@@ -6,8 +6,9 @@ import (
 
 type RemoteFileOpt interface {
 	Fetch() (io.ReadCloser, uint64, error)
-	Revert() error
 	FetchWithConfirm() (io.ReadCloser, uint64, error)
+	GetFetchUrl() (string, error)
+	Revert() error
 	Confirm(string) error
 }
 

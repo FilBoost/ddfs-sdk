@@ -38,6 +38,26 @@ func (fo *DDFileOpt) Fetch() (io.ReadCloser, uint64, error) {
 	return fo.fetch(true)
 }
 
+func (fo *DDFileOpt) GetFetchUrl() (string, error) {
+	v := url.Values{}
+	v.Add("file", fo.file)
+	v.Add("offer_confirmation", strconv.FormatBool(true))
+	hUrl, err := url.ParseRequestURI(fo.host)
+	if err != nil {
+		log.Errorf("[DD] parse url failed url: %v,err:%v", fo.host, err)
+		return "", err
+	}
+
+	goodUrl, err := hUrl.Parse(FetchFileUrl)
+	if err != nil {
+		log.Errorf("[DD] parse url failed url: %v,err:%v", FetchFileUrl, err)
+		return "", err
+	}
+
+	goodUrl.RawQuery = v.Encode()
+	return goodUrl.String(), nil
+}
+
 func (fo *DDFileOpt) fetch(offerConfirmation bool) (io.ReadCloser, uint64, error) {
 	v := url.Values{}
 	v.Add("file", fo.file)
