@@ -41,7 +41,7 @@ func (fo *DDFileOpt) Fetch() (io.ReadCloser, uint64, error) {
 func (fo *DDFileOpt) GetFetchUrl() (string, error) {
 	v := url.Values{}
 	v.Add("file", fo.file)
-	v.Add("offer_confirmation", strconv.FormatBool(true))
+	v.Add("offer_confirmation", strconv.FormatBool(false))
 	hUrl, err := url.ParseRequestURI(fo.host)
 	if err != nil {
 		log.Errorf("[DD] parse url failed url: %v,err:%v", fo.host, err)
